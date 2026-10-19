@@ -1694,3 +1694,17 @@ body:after{
     transform:translateY(-50%)!important;
   }
 }
+
+/* Mobile hero safe area: keep the availability line below the fixed nav. */
+@media(max-width:640px){
+  .home-page .hero-grid{
+    min-height:100svh;
+    padding-top:76px!important;
+    padding-bottom:76px!important;
+    box-sizing:border-box;
+  }
+  .home-page .hero-copy-wrap{
+    position:relative;
+    z-index:3;
+  }
+}

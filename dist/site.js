@@ -111,10 +111,13 @@
   // its outgoing wipe still active. Always clear that transient state when a
   // page is restored from the bfcache so Back never leaves a dark loading veil.
   addEventListener('pageshow',event=>{
-    if(!event.persisted&&!body.classList.contains('page-leave'))return;
+    const navigation=performance.getEntriesByType?.('navigation')?.[0];
+    const restored=event.persisted||navigation?.type==='back_forward';
+    if(!restored)return;
+    // Back/Forward can restore a document with its outgoing veil still mounted.
+    // Clear every transient route state before the restored page is painted.
     body.classList.remove('page-leave','page-enter');
-    wipe.classList.remove('is-quick');
-    wipe.classList.remove('has-preview');
+    wipe.classList.remove('is-quick','has-preview');
     wipe.style.removeProperty('--wipe-preview-image');
     wipeMeta.classList.add('is-hidden');
   });

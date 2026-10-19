@@ -137,9 +137,13 @@
       &&url.hash===location.hash;
     if(sameDocumentRoute){e.preventDefault();return;}
     if(!isPlainInternalLink(link,url)||reduce||leaving)return;
+    const isProject=url.pathname.includes('/projets/');
+    // Keep the full editorial wipe for project entries only. Return and
+    // navigation links should follow the browser immediately so no veil can
+    // remain over the project index.
+    if(!isProject)return;
     e.preventDefault();
     leaving=true;
-    const isProject=url.pathname.includes('/projets/');
     const preview=link.querySelector('img');
     const previewUrl=preview?new URL(preview.currentSrc||preview.src,location.href).href:null;
     let titleCard=false;

@@ -1668,3 +1668,29 @@ body:after{
     margin-left:auto;
   }
 }
+
+/* Final mobile project header fix: use the full viewport and pin Menu to the right edge. */
+@media(max-width:640px){
+  body[class^="project-"] .site-header .nav,
+  body[class^="project-"] .site-header.scrolled .nav,
+  body[class^="project-"] .site-header.hero-active .nav,
+  body[class^="project-"] .site-header.has-scroll .nav{
+    position:relative!important;
+    width:100vw!important;
+    max-width:none!important;
+    height:68px!important;
+    min-height:68px!important;
+    margin:0!important;
+    padding:0 18px!important;
+  }
+  body[class^="project-"] .site-header .menu-toggle,
+  body[class^="project-"] .site-header.scrolled .menu-toggle,
+  body[class^="project-"] .site-header.hero-active .menu-toggle,
+  body[class^="project-"] .site-header.has-scroll .menu-toggle{
+    position:absolute!important;
+    top:50%!important;
+    right:18px!important;
+    margin:0!important;
+    transform:translateY(-50%)!important;
+  }
+}

@@ -1642,3 +1642,28 @@ body:after{
 .cursor-trail{z-index:1099}
 .cursor-ring{z-index:1100}
 .cursor-label{z-index:1101}
+
+/* Keep project-page mobile navigation anchored to the screen edges. */
+@media(max-width:640px){
+  body[class^="project-"] .site-header .nav,
+  body[class^="project-"] .site-header.scrolled .nav{
+    width:calc(100% - 30px);
+    max-width:none;
+    min-height:70px;
+    margin:0 auto;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    box-sizing:border-box;
+  }
+  body[class^="project-"] .site-header .brand{
+    flex:0 1 auto;
+    min-width:0;
+  }
+  body[class^="project-"] .site-header .menu-toggle{
+    flex:0 0 auto;
+    margin-left:auto;
+  }
+}

@@ -1651,7 +1651,7 @@ body:after{
     max-width:none;
     min-height:70px;
     margin:0 auto;
-    padding:0;
+    padding:0!important;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -1661,6 +1661,7 @@ body:after{
   body[class^="project-"] .site-header .brand{
     flex:0 1 auto;
     min-width:0;
+    margin-right:auto;
   }
   body[class^="project-"] .site-header .menu-toggle{
     flex:0 0 auto;

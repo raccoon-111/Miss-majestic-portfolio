@@ -1708,3 +1708,12 @@ body:after{
     z-index:3;
   }
 }
+
+/* Mobile hero hierarchy: keep the message and CTA, remove secondary decoration. */
+@media(max-width:640px){
+  .home-page .hero-scroll-cue,
+  .home-page .marquee{display:none!important}
+  .home-page .hero .text-link{display:none!important}
+  .home-page .hero-meta{margin-top:28px}
+  .home-page .hero-grid{padding-bottom:76px!important}
+}

@@ -117,6 +117,8 @@
     // Back/Forward can restore a document with its outgoing veil still mounted.
     // Clear every transient route state before the restored page is painted.
     body.classList.remove('page-leave','page-enter');
+    // bfcache restores the old page script too; allow the next project click.
+    leaving=false;
     wipe.classList.remove('is-quick','has-preview');
     wipe.style.removeProperty('--wipe-preview-image');
     wipeMeta.classList.add('is-hidden');

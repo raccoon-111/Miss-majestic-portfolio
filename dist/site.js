@@ -10,6 +10,27 @@
   const hero=document.querySelector('.hero');
   const heroSection=hero||document.querySelector('.project-hero');
 
+  // Apply the project mobile header geometry immediately on first navigation.
+  // This prevents the nav from briefly collapsing before the scroll state settles.
+  const lockProjectMobileNav=()=>{
+    if(!/^project-/.test(body.className)||window.innerWidth>640||!navShell||!menu)return;
+    navShell.style.width='100vw';
+    navShell.style.maxWidth='none';
+    navShell.style.position='relative';
+    navShell.style.height='68px';
+    navShell.style.minHeight='68px';
+    navShell.style.margin='0';
+    navShell.style.padding='0 18px';
+    menu.style.position='absolute';
+    menu.style.top='50%';
+    menu.style.right='18px';
+    menu.style.margin='0';
+    menu.style.transform='translateY(-50%)';
+  };
+  lockProjectMobileNav();
+  addEventListener('pageshow',lockProjectMobileNav);
+  addEventListener('resize',lockProjectMobileNav);
+
   // A single editorial wipe gives every route a shared rhythm.
   const wipe=document.createElement('div');
   wipe.className='page-wipe';

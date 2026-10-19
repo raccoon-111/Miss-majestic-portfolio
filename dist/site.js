@@ -144,8 +144,9 @@
     const previewUrl=preview?new URL(preview.currentSrc||preview.src,location.href).href:null;
     let titleCard=false;
     try{
-      titleCard=isProject&&!sessionStorage.getItem('portfolio-route-title-seen');
-      if(titleCard)sessionStorage.setItem('portfolio-route-title-seen','1');
+      // Show the full editorial loading card on every project click.
+      // The project title should never disappear after the first visit.
+      titleCard=isProject;
       sessionStorage.setItem('portfolio-route-transition',JSON.stringify({path:canonicalPath(url.pathname),at:Date.now(),duration:titleCard?titleTransitionMs:quickTransitionMs,title:titleCard,titleText:pageTitle(url.pathname),preview:previewUrl}));
     }catch{}
     const leaveDuration=titleCard?titleTransitionMs:quickTransitionMs;

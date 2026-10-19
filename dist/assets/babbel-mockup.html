@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquette v3 — Publicité → Page de destination → Action (projet CRO Babbel, portfolio)</title>
+<style>
+:root{
+  --ink:#1C1917;
+  --paper:#FFFFFF;
+  --backdrop:#E3E7EB;
+  --accent:#F2622A;
+  --accent-deep:#C8451A;
+  --muted:#6B625B;
+  --line:#E4DFDA;
+  --caption:#14110F;
+  --ok:#1F6B4D;
+  /* Une seule pile de polices, système : rien à charger (cf. section E.2 du rapport) */
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --display:var(--body);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace;
+  --cta:#C8451A;        /* blanc sur #C8451A = 4,86:1 (≥ 4,5:1, WCAG AA) */
+  --cta-hover:#A63612;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--backdrop);color:var(--ink);
+  font-family:var(--body);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 70px}
+
+/* ---------- en-tête du document ---------- */
+.doc-head{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:8px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep)}
+.doc-head .doc-title{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,40px);line-height:1.05;margin:6px 0 4px}
+.doc-head p{margin:0;color:var(--muted);max-width:60ch;font-size:14px}
+.toggle{
+  font-family:var(--body);font-weight:600;font-size:13px;cursor:pointer;
+  background:var(--ink);color:#fff;border:0;border-radius:999px;padding:10px 18px;
+}
+.toggle:hover{background:#000}
+.toggle:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.disclaimer{
+  margin:18px 0 26px;padding:11px 14px;border-left:3px solid var(--accent-deep);
+  background:#FBEFE9;color:#7A3512;font-size:12.5px;border-radius:0 6px 6px 0;
+}
+
+/* ---------- grille annonce / page ---------- */
+.stage{display:grid;grid-template-columns:minmax(0,340px) 44px minmax(0,392px);gap:0;justify-content:center;align-items:start}
+@media (max-width:900px){.stage{grid-template-columns:1fr;gap:26px}.arrow{display:none}}
+
+.col-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+
+.arrow{display:flex;align-items:center;justify-content:center;padding-top:150px;color:var(--muted)}
+.arrow span{font-size:26px;font-family:var(--mono)}
+
+/* ---------- carte annonce Meta ---------- */
+.ad{background:var(--paper);border-radius:12px;overflow:hidden;box-shadow:0 2px 14px rgba(28,25,23,.10)}
+.ad-top{display:flex;gap:9px;align-items:center;padding:12px 13px 8px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--display);font-weight:800;display:grid;place-items:center;font-size:15px}
+.ad-name{font-weight:700;font-size:13.5px;line-height:1.2}
+.ad-spon{font-size:11.5px;color:var(--muted)}
+.ad-body{padding:0 13px 11px;font-size:13.5px;line-height:1.5}
+.ad-body strong{font-weight:700}
+.ad-creative{background:var(--caption);aspect-ratio:4/5;position:relative;display:flex;align-items:flex-end;padding:16px}
+.ad-creative::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(120% 80% at 70% 22%, rgba(242,98,42,.20), transparent 62%),
+    linear-gradient(180deg,#2A2523 0%,#14110F 100%);
+}
+.scene{position:absolute;inset:0;display:grid;place-items:center;opacity:.5}
+.scene .tile{position:absolute;border:1px solid rgba(255,255,255,.16);border-radius:6px}
+.t1{width:44%;height:26%;top:16%;left:10%}
+.t2{width:30%;height:20%;top:20%;right:11%}
+.t3{width:36%;height:22%;bottom:30%;left:22%}
+.captions{position:relative;width:100%}
+.cap-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:2px}
+.cap{font-family:var(--mono);font-size:12.5px;line-height:1.45;padding:7px 9px;border-radius:4px;margin-top:6px}
+.cap-them{background:rgba(255,255,255,.94);color:var(--ink)}
+.cap-you{background:rgba(255,255,255,.10);color:rgba(255,255,255,.72);border:1px dashed rgba(255,255,255,.28)}
+.cursor{display:inline-block;width:7px;height:12px;background:var(--accent);vertical-align:-2px;margin-left:2px;animation:blink 1.1s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+@media (prefers-reduced-motion:reduce){.cursor{animation:none}}
+.ad-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;background:#F5F3F1}
+.ad-foot .h{font-weight:700;font-size:13px;line-height:1.3}
+.ad-foot .d{font-size:11.5px;color:var(--muted)}
+.ad-btn{flex:none;background:#E4E6EB;border-radius:6px;padding:8px 12px;font-size:12.5px;font-weight:700;white-space:nowrap}
+
+/* ---------- téléphone ---------- */
+.phone{background:var(--ink);border-radius:34px;padding:11px;box-shadow:0 10px 34px rgba(28,25,23,.22)}
+.screen{background:var(--paper);border-radius:25px;overflow:clip;position:relative}
+.notch{height:22px;display:grid;place-items:center}
+.notch i{display:block;width:74px;height:5px;border-radius:99px;background:#E4DFDA}
+
+.lp{padding-bottom:64px}
+.sec{padding:26px 20px;border-top:1px solid var(--line);position:relative}
+.sec:first-child{border-top:0}
+.lbl{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-deep);margin:0 0 9px}
+h1.lp-h{font-family:var(--display);font-weight:800;font-size:23px;line-height:1.12;letter-spacing:-.01em;margin:0 0 10px}
+h2.lp-h3{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.15;margin:0 0 9px}
+.lp p{margin:0 0 12px;font-size:16px;line-height:1.5;color:#332E2A}
+.lp p:last-child{margin-bottom:0}
+.muted{color:var(--muted)!important;font-size:14px!important}
+
+/* héro */
+.hero{padding-top:16px}
+.hero-vis{background:var(--caption);border-radius:12px;aspect-ratio:16/11;position:relative;display:flex;align-items:flex-end;padding:13px;overflow:hidden;margin-bottom:16px}
+.hero-vis::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 72% 20%,rgba(242,98,42,.22),transparent 60%),linear-gradient(180deg,#2A2523,#14110F)}
+.cta{
+  display:block;width:100%;text-align:center;background:var(--cta);color:#fff;
+  font-weight:700;font-size:16.5px;padding:15px 16px;border-radius:10px;text-decoration:none;
+  border:0;cursor:pointer;font-family:var(--body);min-height:48px;
+}
+.cta:hover{background:var(--cta-hover)}
+.cta:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.micro{font-size:14px;color:var(--muted);text-align:center;margin:9px 0 0}
+.proof-strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px;padding-top:14px;border-top:1px solid var(--line)}
+.chip{font-family:var(--mono);font-size:12.5px;background:#F4F1EE;color:#4A423B;padding:5px 8px;border-radius:5px}
+
+/* bénéfices */
+.ben{border-left:3px solid var(--accent);padding:2px 0 2px 13px;margin-bottom:17px}
+.ben h3{font-family:var(--display);font-weight:700;font-size:17px;line-height:1.2;margin:0 0 5px}
+.ben p{font-size:16px;margin:0;color:#4A423B}
+
+/* preuve */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.stat{background:#F7F5F3;border-radius:9px;padding:12px}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:21px;line-height:1.05}
+.stat span{font-size:14px;color:var(--muted);display:block;margin-top:3px}
+.stat.wide{grid-column:1/-1}
+.slot{grid-column:1/-1;border:1px dashed var(--line);border-radius:9px;padding:11px;text-align:center;font-size:13px;color:var(--muted);font-family:var(--mono)}
+
+/* témoignages */
+.tmo{border:1px solid var(--line);border-radius:11px;padding:14px;margin-bottom:11px}
+.tmo p{font-size:16px;margin:0 0 9px}
+.tmo .who{display:flex;gap:9px;align-items:center}
+.tmo .ini{width:30px;height:30px;border-radius:50%;background:#F1EDE9;color:#5C534C;display:grid;place-items:center;font-weight:700;font-size:12.5px;flex:none}
+.tmo .who b{font-size:14px;display:block;line-height:1.2}
+.tmo .who span{font-size:13px;color:var(--muted)}
+.fic{font-family:var(--mono);font-size:11.5px;color:#6F4F9A;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;display:block}
+
+/* étapes */
+.step{display:flex;gap:12px;margin-bottom:15px}
+.step .n{width:27px;height:27px;flex:none;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:12px}
+.step h3{font-family:var(--display);font-weight:700;font-size:17px;margin:2px 0 4px}
+.step p{font-size:16px;margin:0;color:#4A423B}
+
+/* faq */
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:13px 24px 13px 0;font-weight:600;font-size:16px;line-height:1.35;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:2px;top:12px;font-family:var(--mono);font-size:17px;color:var(--accent-deep)}
+details[open] summary::after{content:"–"}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details p{font-size:16px;padding:0 0 13px;color:#4A423B}
+
+/* cta final */
+.final{background:var(--ink);color:#fff}
+.final h2.lp-h3{color:#fff;font-size:21px}
+.final p{color:rgba(255,255,255,.74)}
+.final .micro{color:rgba(255,255,255,.6)}
+.final .lbl{color:#F9A57F}
+
+.lp-foot{padding:16px 20px;font-size:13px;color:var(--muted);background:#F7F5F3;line-height:1.5}
+
+/* barre collante */
+.sticky{
+  transition:transform .25s ease, opacity .25s ease;
+  transform:translateY(110%);opacity:0;pointer-events:none;
+}
+.sticky.show{transform:none;opacity:1;pointer-events:auto}
+.sticky{
+  position:sticky;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);
+  border-top:1px solid var(--line);padding:10px 14px;display:flex;gap:11px;align-items:center;
+}
+.sticky .p{font-size:13px;color:var(--muted);line-height:1.25}
+.sticky .cta{width:auto;flex:none;padding:12px 16px;font-size:15px;border-radius:8px}
+
+/* ---------- annotations ---------- */
+.anno{
+  display:none;position:absolute;top:-9px;right:12px;z-index:5;
+  background:var(--ink);color:#fff;font-family:var(--mono);font-size:10px;
+  padding:4px 8px;border-radius:99px;white-space:nowrap;
+}
+.anno-on .anno{display:block}
+.anno-on .sec{outline:1px dashed rgba(242,98,42,.55);outline-offset:-1px}
+.legend{display:none;margin-top:22px;background:var(--paper);border-radius:11px;padding:16px 18px;font-size:13px}
+.anno-on .legend{display:block}
+.legend .lg-title{font-family:var(--display);font-weight:800;font-size:16px;margin:0 0 9px}
+.legend li{margin-bottom:5px;color:#3A342F}
+.legend code{font-family:var(--mono);font-size:11.5px;background:#F4F1EE;padding:1px 5px;border-radius:3px}
+@media print{
+  @page{size:A4;margin:12mm}
+  :root{--body:"Helvetica Neue",Helvetica,Arial,sans-serif;--display:"Helvetica Neue",Helvetica,Arial,sans-serif;--mono:Menlo,"DejaVu Sans Mono",monospace}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff}
+  .wrap{max-width:none;padding:0}
+  .toggle{display:none}
+  .sticky{display:none}
+  .stage{display:block}
+  .arrow{display:none}
+  .col-label{margin-top:14px}
+  .doc-head .doc-title{font-size:24px}
+  .doc-head p{font-size:12px}
+  .disclaimer{font-size:11px;margin:10px 0 14px}
+  .ad{max-width:296px;margin:0 auto;box-shadow:none;border:1px solid var(--line);break-inside:avoid}
+  .ad-body{font-size:11.5px;line-height:1.4}
+  .ad-foot .h{font-size:11.5px}
+  .phone{max-width:420px;margin:0 auto;box-shadow:none;padding:8px}
+  .screen{overflow:visible}
+  .sec{break-inside:auto}
+  .hero,.ben,.tmo,.step,details,.stats,.proof-strip,.final,.lp-foot{break-inside:avoid}
+  h1.lp-h,h2.lp-h3,.lbl{break-after:avoid}
+  .legend{break-inside:avoid;border:1px solid var(--line)}
+  .cursor{animation:none}
+}
+.lp-foot a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;margin-right:12px;font-size:13px}
+.lp-foot a:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
+.hero-vis img,.ad-creative img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-vis::before,.ad-creative::before{z-index:1;opacity:.3}
+.hero-vis img{object-position:center 30%}
+.captions{z-index:2}
+.scene{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="doc-head">
+    <div>
+      <div class="eyebrow">Optimisation du taux de conversion · Maquette de portfolio</div>
+      <p class="doc-title">Publicité → Page de destination → Action</p>
+      <p>Maquette de la page de destination décrite en partie B du document, présentée à côté de l'annonce Meta qui amène le trafic. Objectif de conversion unique : démarrer la première leçon gratuite. <span style="font-family:var(--mono);font-size:11px;color:var(--accent-deep)">v3 · 23/09/2026</span></p>
+    </div>
+    <button class="toggle" id="tg" aria-pressed="false">Afficher les repères de conversion</button>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Projet de démonstration à but pédagogique, non affilié à Babbel et non représentatif de sa communication officielle.</strong>
+    Aucun visuel, logo ou texte protégé n'est reproduit : tous les contenus sont originaux. Les témoignages sont des personas fictifs illustratifs.
+    Les chiffres attribués à la marque sont ceux affichés publiquement au 26/08/2026 et sont à revalider avant tout usage.
+  </div>
+
+  <div class="stage" id="stage">
+
+    <!-- ============ ANNONCE ============ -->
+    <div>
+      <div class="col-label">1 · L'annonce (Meta, fil et Reels)</div>
+      <div class="ad">
+        <div class="ad-top">
+          <div class="avatar">B</div>
+          <div>
+            <div class="ad-name">Apprendre l'anglais</div>
+            <div class="ad-spon">Sponsorisé · <svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" style="vertical-align:-1px"><circle cx="12" cy="12" r="10" fill="none" stroke="#8A827B" stroke-width="2"/><path d="M2 12h20M12 2c3 3 3 17 0 20M12 2c-3 3-3 17 0 20" fill="none" stroke="#8A827B" stroke-width="2"/></svg></div>
+          </div>
+        </div>
+        <div class="ad-body">
+          <strong>Vous comprenez tout. C'est quand il faut répondre que ça bloque.</strong><br><br>
+          Vous suivez la réunion sans effort. Et puis quelqu'un se tourne vers vous, et les mots ne viennent pas dans le bon ordre.<br><br>
+          Ce n'est pas un problème de vocabulaire — vous en avez accumulé pendant dix ans. C'est un problème de pratique.<br><br>
+          15 minutes par jour, des dialogues que vous utiliserez vraiment. Première leçon offerte, sans carte bancaire.
+        </div>
+        <div class="ad-creative">
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%233b3330'/%3E%3Cstop offset='1' stop-color='%23191512'/%3E%3C/linearGradient%3E%3Cfilter id='b'%3E%3CfeGaussianBlur stdDeviation='3'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='375' height='300' fill='url(%23g)'/%3E%3Cg filter='url(%23b)' opacity='.7'%3E%3Crect x='28' y='34' width='130' height='82' rx='6' fill='%23554a45'/%3E%3Ccircle cx='93' cy='72' r='17' fill='%23887a72'/%3E%3Crect x='172' y='34' width='130' height='82' rx='6' fill='%234d4440'/%3E%3Ccircle cx='237' cy='72' r='17' fill='%237e7069'/%3E%3Crect x='316' y='34' width='60' height='82' rx='6' fill='%23554a45'/%3E%3Crect x='28' y='128' width='130' height='82' rx='6' fill='%234d4440'/%3E%3Ccircle cx='93' cy='166' r='17' fill='%23887a72'/%3E%3Crect x='172' y='128' width='130' height='82' rx='6' fill='%23554a45'/%3E%3Ccircle cx='237' cy='166' r='17' fill='%237e7069'/%3E%3C/g%3E%3Cpath d='M92 300 C100 232 140 212 187 212 C234 212 274 232 282 300 Z' fill='%23231e1b'/%3E%3Ccircle cx='187' cy='150' r='48' fill='%23c8a58d'/%3E%3Cpath d='M139 148 a48 48 0 0 1 96 0' fill='none' stroke='%23e9e2dc' stroke-width='6' stroke-linecap='round'/%3E%3Crect x='131' y='140' width='14' height='26' rx='6' fill='%23e9e2dc'/%3E%3Crect x='229' y='140' width='14' height='26' rx='6' fill='%23e9e2dc'/%3E%3Cpath d='M141 142 C136 100 160 88 187 88 C214 88 238 100 233 142 C222 118 152 118 141 142 Z' fill='%234a2f22'/%3E%3C/svg%3E" alt="Une femme d'une trentaine d'années, casque sur les oreilles, face à un écran de visioconférence flou où l'on devine ses collègues. Une question lui a été posée en anglais ; sa réponse reste vide.">
+          <div class="captions">
+            <div class="cap-lbl">Sous-titres · réunion en anglais</div>
+            <div class="cap cap-them">« Alors, qu'est-ce que vous en pensez ? »</div>
+            <div class="cap cap-you">Vous …<span class="cursor" aria-hidden="true"></span></div>
+          </div>
+        </div>
+        <div class="ad-foot">
+          <div>
+            <div class="h">Votre première vraie conversation en anglais, dans 3 semaines</div>
+            <div class="d">15 minutes par jour · Première leçon offerte</div>
+          </div>
+          <div class="ad-btn">En savoir plus</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow" aria-hidden="true"><span>→</span></div>
+
+    <!-- ============ PAGE DE DESTINATION ============ -->
+    <div>
+      <div class="col-label">2 · La page de destination (mobile, 375 px)</div>
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"><i></i></div>
+
+          <div class="lp">
+
+            <!-- HÉRO -->
+            <section class="sec hero">
+              <span class="anno">C.1 · Héro</span>
+              <div class="hero-vis">
+                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%233b3330'/%3E%3Cstop offset='1' stop-color='%23191512'/%3E%3C/linearGradient%3E%3Cfilter id='b'%3E%3CfeGaussianBlur stdDeviation='3'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='375' height='300' fill='url(%23g)'/%3E%3Cg filter='url(%23b)' opacity='.7'%3E%3Crect x='28' y='34' width='130' height='82' rx='6' fill='%23554a45'/%3E%3Ccircle cx='93' cy='72' r='17' fill='%23887a72'/%3E%3Crect x='172' y='34' width='130' height='82' rx='6' fill='%234d4440'/%3E%3Ccircle cx='237' cy='72' r='17' fill='%237e7069'/%3E%3Crect x='316' y='34' width='60' height='82' rx='6' fill='%23554a45'/%3E%3Crect x='28' y='128' width='130' height='82' rx='6' fill='%234d4440'/%3E%3Ccircle cx='93' cy='166' r='17' fill='%23887a72'/%3E%3Crect x='172' y='128' width='130' height='82' rx='6' fill='%23554a45'/%3E%3Ccircle cx='237' cy='166' r='17' fill='%237e7069'/%3E%3C/g%3E%3Cpath d='M92 300 C100 232 140 212 187 212 C234 212 274 232 282 300 Z' fill='%23231e1b'/%3E%3Ccircle cx='187' cy='150' r='48' fill='%23c8a58d'/%3E%3Cpath d='M139 148 a48 48 0 0 1 96 0' fill='none' stroke='%23e9e2dc' stroke-width='6' stroke-linecap='round'/%3E%3Crect x='131' y='140' width='14' height='26' rx='6' fill='%23e9e2dc'/%3E%3Crect x='229' y='140' width='14' height='26' rx='6' fill='%23e9e2dc'/%3E%3Cpath d='M141 142 C136 100 160 88 187 88 C214 88 238 100 233 142 C222 118 152 118 141 142 Z' fill='%234a2f22'/%3E%3C/svg%3E" alt="Une femme d'une trentaine d'années, casque sur les oreilles, face à un écran de visioconférence flou où l'on devine ses collègues. Une question lui a été posée en anglais ; sa réponse reste vide.">
+                <div class="captions">
+                  <div class="cap-lbl">Sous-titres · réunion en anglais</div>
+                  <div class="cap cap-them">« Alors, qu'est-ce que vous en pensez ? »</div>
+                  <div class="cap cap-you">Vous …<span class="cursor" aria-hidden="true"></span></div>
+                </div>
+              </div>
+              <h1 class="lp-h">Tenez votre première vraie conversation en anglais en 3 semaines.</h1>
+              <p>15 minutes par jour, des dialogues que vous utiliserez vraiment en réunion. La première leçon est offerte et ne demande aucune carte bancaire.</p>
+              <button class="cta">Commencer ma première leçon</button>
+              <p class="micro">Gratuit · Sans carte bancaire · 1 minute pour commencer</p>
+              <div class="proof-strip">
+                <span class="chip">200+ experts en langues</span>
+                <span class="chip">Cours adaptés aux francophones</span>
+                <span class="chip">15 h ≈ un semestre</span>
+              </div>
+            </section>
+
+            <!-- PROBLÈME -->
+            <section class="sec">
+              <span class="anno">C.2 · Problème</span>
+              <p class="lbl">Le vrai blocage</p>
+              <h2 class="lp-h3">Vous comprenez tout. C'est au moment de répondre que ça bloque.</h2>
+              <p>En réunion, vous suivez sans effort. Vous saisissez les nuances, les sous-entendus, même l'accent du collègue de la logistique.</p>
+              <p>Et puis quelqu'un se tourne vers vous. Trois secondes de silence. Vous sortez une phrase courte, juste, et vous vous taisez pour le reste de l'heure — alors que vous aviez quelque chose à dire.</p>
+              <p>Ce n'est pas un problème de vocabulaire. Vous en avez accumulé pendant dix ans. C'est un problème de pratique : vous n'avez presque jamais parlé à voix haute.</p>
+              <p>Et l'application que vous aviez téléchargée ? Vous avez tenu onze jours. Pas par manque de volonté : parce qu'enchaîner des mots isolés dans un questionnaire à choix multiples n'a jamais ressemblé à une conversation.</p>
+            </section>
+
+            <!-- BÉNÉFICES -->
+            <section class="sec">
+              <span class="anno">C.3 · Bénéfices</span>
+              <p class="lbl">Ce que ça change</p>
+              <div class="ben">
+                <h3>Vous parlez dès la première leçon</h3>
+                <p>Chaque leçon vous fait dire les phrases à voix haute, et l'application écoute. Au bout de trois semaines, vous aurez prononcé plusieurs centaines de phrases — pas reconnu des mots dans un menu déroulant.</p>
+              </div>
+              <div class="ben">
+                <h3>Vous apprenez les phrases que vous utiliserez jeudi</h3>
+                <p>Relancer un client. Demander une précision sans avoir l'air perdue. Refuser poliment une échéance. Des dialogues de bureau, écrits pour des adultes qui travaillent — pas « le chat est sur la table ».</p>
+              </div>
+              <div class="ben">
+                <h3>Quinze minutes, c'est un trajet</h3>
+                <p>Une leçon tient dans un trajet de tram ou une pause café. C'est court parce que c'est fait pour être fait tous les jours, pas pour être impressionnant une fois.</p>
+              </div>
+              <div class="ben">
+                <h3>Ce que vous apprenez ne repart pas</h3>
+                <p>Le système vous représente chaque mot juste avant le moment où vous l'auriez oublié. Vous ne repartez pas de zéro après une semaine de vacances : vous reprenez là où votre mémoire en est.</p>
+              </div>
+            </section>
+
+            <!-- PREUVE -->
+            <section class="sec">
+              <span class="anno">C.4 · Preuve</span>
+              <p class="lbl">Ce sur quoi ça repose</p>
+              <h2 class="lp-h3">Ce n'est pas une méthode improvisée.</h2>
+              <div class="stats">
+                <div class="stat wide">
+                  <b>15 h ≈ un semestre</b>
+                  <span>Une étude universitaire portant sur l'application situe quinze heures d'apprentissage à distance à l'équivalent d'un semestre de cours sur les bancs de la fac.</span>
+                </div>
+                <div class="stat"><b>200+</b><span>experts en langues écrivent les cours, adaptés à votre langue maternelle</span></div>
+                <div class="stat"><b>60 000</b><span>leçons réparties sur plus de 5 000 cours</span></div>
+                <div class="slot">Emplacement réservé — logos de presse réellement détenus et autorisés</div>
+              </div>
+            </section>
+
+            <!-- TÉMOIGNAGES -->
+            <section class="sec">
+              <span class="anno">C.5 · Témoignages</span>
+              <p class="lbl">Ils étaient au même point</p>
+              <span class="fic">Personas fictifs illustratifs — projet pédagogique</span>
+              <div class="tmo">
+                <p>« Ma boîte a été rachetée par un groupe américain en janvier. Pendant trois mois, je n'ai rien dit en comité. J'ai fait mes quinze minutes dans le tram, tous les matins. À la quatrième semaine, j'ai posé une question sans la répéter dans ma tête avant. »</p>
+                <div class="who"><span class="ini">C</span><span><b>Camille, 33 ans</b><span>Chargée d'affaires, Grenoble</span></span></div>
+              </div>
+              <div class="tmo">
+                <p>« Je n'avais jamais tenu plus de deux semaines sur une application. La différence, ici, c'est que je parlais à voix haute, seul dans ma voiture, et que je me sentais ridicule les trois premiers jours. Au bout d'un mois, j'ai géré un appel avec un fournisseur irlandais sans passer par un collègue. »</p>
+                <div class="who"><span class="ini">M</span><span><b>Malik, 38 ans</b><span>Conducteur de travaux, Nantes</span></span></div>
+              </div>
+              <div class="tmo">
+                <p>« Je partais six mois en Australie et je voulais arriver en sachant demander autre chose qu'un café. J'ai commencé en janvier, quinze minutes le soir. En juin, j'ai passé mon entretien d'embauche en anglais. »</p>
+                <div class="who"><span class="ini">L</span><span><b>Léa, 26 ans</b><span>Infirmière, Bordeaux</span></span></div>
+              </div>
+            </section>
+
+            <!-- FONCTIONNEMENT -->
+            <section class="sec">
+              <span class="anno">C.6 · Fonctionnement</span>
+              <p class="lbl">Ce qui se passe après le clic</p>
+              <div class="step">
+                <span class="n">1</span>
+                <div><h3>Dites-nous où vous en êtes</h3><p>Deux questions : votre niveau actuel, et pourquoi vous apprenez. Trente secondes, pas de test de niveau interminable.</p></div>
+              </div>
+              <div class="step">
+                <span class="n">2</span>
+                <div><h3>Faites votre première leçon</h3><p>Quinze minutes, offertes, sans carte bancaire. Vous parlez dès cette première leçon.</p></div>
+              </div>
+              <div class="step">
+                <span class="n">3</span>
+                <div><h3>Revenez quinze minutes demain</h3><p>L'application vous rappelle au moment que vous avez choisi. La révision espacée s'occupe du reste : vous n'avez qu'à revenir.</p></div>
+              </div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="sec">
+              <span class="anno">C.7 · FAQ / objections</span>
+              <p class="lbl">Les questions qui bloquent</p>
+              <details open>
+                <summary>J'ai déjà abandonné une application au bout de deux semaines. Pourquoi ce serait différent ?</summary>
+                <p>Parce que la plupart des gens n'abandonnent pas par manque de motivation : ils abandonnent quand ils ne voient pas de progrès. Une leçon de quinze minutes où vous prononcez des phrases entières produit une sensation de progrès mesurable dès la première semaine — contrairement à un questionnaire de vocabulaire, où l'on empile des points sans jamais avoir parlé. La première leçon est gratuite : en quinze minutes, vous saurez si ce format vous ressemble.</p>
+              </details>
+              <details>
+                <summary>« Trois semaines », c'est réaliste ou c'est un argument marketing ?</summary>
+                <p>Soyons précis sur ce que cela veut dire. En trois semaines à quinze minutes par jour, vous ne serez pas bilingue et vous ne présenterez pas un budget annuel en anglais. Vous serez capable de tenir un échange simple : poser une question, répondre à une objection, dire que vous n'avez pas compris et demander qu'on répète. Pour quelqu'un qui se tait en réunion depuis huit mois, c'est déjà l'essentiel du chemin.</p>
+              </details>
+              <details>
+                <summary>Est-ce que je vais vraiment parler, ou juste cliquer sur des mots ?</summary>
+                <p>Chaque leçon comporte des passages où vous dites la phrase à voix haute, et où la reconnaissance vocale vous dit si elle est compréhensible. C'est inconfortable les trois premiers jours — parler seul à son téléphone dans le tram demande un peu de courage — et c'est précisément ce qui fait la différence avec ce que vous avez essayé avant.</p>
+              </details>
+              <details>
+                <summary>Je n'ai vraiment que dix à quinze minutes par jour. C'est suffisant ?</summary>
+                <p>C'est le format pour lequel la méthode est conçue. Une leçon dure quinze minutes parce que c'est la durée qu'on tient réellement tous les jours — et en apprentissage des langues, la régularité pèse plus lourd que l'intensité. Quinze minutes six jours par semaine battent deux heures le dimanche.</p>
+              </details>
+              <details>
+                <summary>Combien ça coûte, et est-ce que je peux arrêter ?</summary>
+                <p>La première leçon est gratuite et ne demande pas de carte bancaire. Ensuite, l'accès complet à une langue passe par un abonnement de un, trois, six ou douze mois — comptez de l'ordre d'une quinzaine d'euros pour un mois, nettement moins par mois sur une durée plus longue ; le tarif exact dépend de la formule, du support et des promotions en cours, et vous est affiché avant tout paiement. L'abonnement se renouvelle automatiquement, et se résilie depuis votre compte, en deux clics, à tout moment avant l'échéance.</p>
+              </details>
+              <details>
+                <summary>Je ne suis ni débutante ni bilingue. C'est adapté à mon niveau ?</summary>
+                <p>C'est le profil le plus courant parmi les gens qui commencent ici : ils comprennent, ils lisent, ils ne parlent pas. Les deux questions du départ servent exactement à ça — vous placer au bon niveau plutôt que de vous faire recommencer par « comment vous appelez-vous ? ».</p>
+              </details>
+            </section>
+
+            <!-- CTA FINAL -->
+            <section class="sec final">
+              <span class="anno">C.8 · CTA final</span>
+              <p class="lbl">Le choix</p>
+              <h2 class="lp-h3">Dans trois semaines, vous aurez soit trois semaines d'anglais passif de plus, soit une première conversation derrière vous.</h2>
+              <p>La première leçon prend quinze minutes et ne coûte rien. C'est le seul moyen de savoir si ça marche pour vous.</p>
+              <button class="cta">Commencer ma première leçon</button>
+              <p class="micro">Sans carte bancaire · Résiliable en deux clics · Tarif affiché avant tout paiement</p>
+            </section>
+
+            <div class="lp-foot">
+              <div style="margin-bottom:8px"><a href="#mentions">Mentions légales</a><a href="#confidentialite">Confidentialité</a><a href="#cgv">Conditions d'abonnement</a></div>
+              Maquette pédagogique — non affiliée à Babbel. Aucun menu de navigation ni lien commercial sortant : une page de destination publicitaire n'a qu'une seule action possible. Seuls les liens légaux obligatoires (LCEN, RGPD, information précontractuelle) sont conservés.
+            </div>
+          </div>
+
+          <div class="sticky">
+            <div class="p">15 min · Première leçon offerte<br>Sans carte bancaire</div>
+            <button class="cta">Commencer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend" id="lg">
+    <p class="lg-title">Lecture des annotations</p>
+    <ul>
+      <li><code>C.1</code> — Titre repris mot pour mot de l'annonce, appel à l'action au-dessus de la ligne de flottaison, preuve minimale en légitimation.</li>
+      <li><code>C.2</code> — Le problème avant les bénéfices : l'abandon des onze jours est nommé avant que le lecteur ne l'oppose lui-même.</li>
+      <li><code>C.3</code> — Quatre bénéfices formulés en résultats obtenus, jamais en fonctionnalités disponibles.</li>
+      <li><code>C.4</code> — La preuve arrive après les bénéfices : elle n'a de valeur que si l'on sait de quoi elle atteste.</li>
+      <li><code>C.5</code> — Statistique puis récit : la première établit l'échelle, le second l'identification. Chaque verbatim porte une date et un résultat précis.</li>
+      <li><code>C.6</code> — Trois étapes pour lever l'incertitude sur ce qui se passe après le clic.</li>
+      <li><code>C.7</code> — Une question par objection identifiée, dans l'ordre d'intensité. Le prix arrive en cinquième, pas en premier.</li>
+      <li><code>C.8</code> — Même libellé de bouton qu'en héro. Raison d'agir fondée sur le coût de l'inaction, jamais sur une fausse rareté.</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+  const tg = document.getElementById('tg');
+  if (/[?&]anno=1/.test(location.search)) { document.body.classList.add('anno-on'); tg.setAttribute('aria-pressed','true'); tg.textContent = 'Masquer les repères de conversion'; }
+  tg.addEventListener('click', () => {
+    const on = document.body.classList.toggle('anno-on');
+    tg.setAttribute('aria-pressed', String(on));
+    tg.textContent = on ? 'Masquer les repères de conversion' : 'Afficher les repères de conversion';
+  });
+  document.querySelectorAll('.cta, .lp-foot a').forEach(b => b.addEventListener('click', e => e.preventDefault()));
+  // Barre d'action persistante : n'apparaît qu'une fois le héro (et son bouton) hors écran
+  const hero = document.querySelector('.hero'), bar = document.querySelector('.sticky');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => bar.classList.toggle('show', !e.isIntersecting), {threshold: 0.15}).observe(hero);
+  } else { bar.classList.add('show'); }
+</script>
+</body>
+</html>

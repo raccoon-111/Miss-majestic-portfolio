@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Miss Majestic</title>
+<meta name="description" content="Parler d’une alternance, d’un audit ou d’une idée à rendre plus claire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="preload" as="image" href="assets/profile-loading-background.webp">
+<script>document.documentElement.dataset.motion="pending";</script></head>
+<body class="contact-page contact-redesign">
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html#accueil"><span>Miss Majestic</span><small>Marketing digital</small></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <span>↘</span></button>
+    <nav class="nav-links" id="main-nav" aria-label="Navigation principale">
+      <a href="index.html#accueil">Accueil</a><a href="index.html#projets">Projets</a><a href="index.html#methode">Méthode</a><a href="index.html#a-propos">À propos</a><a href="index.html#cv">CV</a><a class="nav-cta active-nav" href="contact.html">Parlons-en <span>↗</span></a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="contact-workspace contact-only" aria-labelledby="contact-form-title">
+    <div class="container contact-workspace-grid">
+      <div class="contact-workspace-intro reveal-ready">
+        <div class="eyebrow"><i></i> Contact</div>
+        <h1 id="contact-form-title">Parlons de<br><em>la suite.</em></h1>
+        <p>Un objectif, un doute ou une première intuition suffit pour commencer.</p>
+        <div class="contact-signal" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+      </div>
+      <div class="contact-form-shell reveal-ready" data-reveal-delay="1">
+        <div class="contact-form-top"><span>Votre message</span><span class="form-step" data-form-step>00 / 03</span></div>
+        <form class="contact-form contact-form-new" id="contact-form">
+          <label class="contact-field" data-field="1"><span><b>01</b> Votre nom</span><input name="name" type="text" autocomplete="name" placeholder="Prénom Nom" required></label>
+          <label class="contact-field" data-field="2"><span><b>02</b> Votre email</span><input name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr" required></label>
+          <label class="contact-field contact-field-message" data-field="3"><span><b>03</b> Le point de départ</span><textarea name="message" rows="4" placeholder="Une question, un objectif, une piste…" required></textarea></label>
+          <div class="contact-form-actions"><button class="button light-button magnetic" type="submit">Préparer le message <span>↗</span></button><span class="contact-form-note">Aucun envoi automatique — le brouillon reste ici.</span></div>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer"><div class="container footer-inner"><span>Portfolio personnel · projets pédagogiques · France</span><a href="index.html#accueil">Retour en haut ↑</a></div></footer>
+<script src="site.js"></script>
+</body>
+</html>
